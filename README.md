@@ -1,2 +1,2 @@
 # trainingVT
-asdasdas
+VUONG TRIEU DEP TRAI NHAT !!!
