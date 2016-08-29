@@ -8,7 +8,6 @@ struct MATRAN
 	{
 		private:
 		int soHang=10,soCot=10;
-		float det=0;
 		float **mt=new float*[soHang];
 		public:
 			MATRAN(int m, int n):soHang(m),soCot(n)
