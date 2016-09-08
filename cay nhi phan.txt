@@ -1,0 +1,166 @@
+//KHAI BAO CAY
+
+struct nodetype
+{
+   int key;	
+   int info;
+   struct nodetype *left;
+   struct nodetype *right;
+};
+typedef struct nodetype *NODEPTR;
+NODEPTR tree;
+
+
+//Khoi tao cay
+void Inittree(NODEPTR &root) {
+	root = NULL;
+}
+
+//CAP PHAT VUNG NHO
+NODEPTR new_node(void) {
+	NODEPTR p;
+	p = (NODEPTR)malloc(sizeof(strucnodetype));
+	return(p);
+}
+
+//TAO CAY NHI PHAN (BTS)
+void Insert(NODEPTR root, int x, int a) {
+	NODEPTR p;
+	if(x == root->key) {
+	printf("bi trung khoa, khong them nut nay duoc");
+	return;
+	}
+	if(x < root->info && root->left == NULL){
+	p= new_node();
+	p->key = x;
+	p->info = a;
+	p->left = NULL;
+	p->right = NULL;
+	root->left = p;
+	return;
+	}
+	if(x > root->info && root->right ==NULL){
+	p = new_node();
+	p->key = x;
+	p->info = a;
+	p->left = NULL;
+	p->right = NULL;
+	root->right = p;
+	return;
+	}
+	if(x < root->info)
+		Insert(root->left, x, a);
+	else 
+		Insert(root->right, x, a);
+}
+
+void Create_Tree(NODEPTR &root) {
+	int khoa, noidung;
+	char so[10];
+	NODEPTR p;
+	do{
+	printf("Nhap khoa: ");
+	gets(so);
+	khoa = atoi(so);
+	if(khoa !=0) {
+		printf("Nhap noi dung: ");
+		gets(so);
+		nodung = atoi(so);
+		if(root == NULL){
+			p = new_node();
+			p->key = khoa;
+			p->info = noidung;
+			p->left = NULL;
+			p->right = NULL;
+			root = p;
+		}
+	else 
+		Insert(root, khoa, noidung);
+	}
+	}
+	while(khoa != 0);
+}
+
+//GIAI PHONG VUNG NHO
+void Free_Node(NODEPTR p)
+{
+   free(p);
+}
+
+
+//KIEM TRA CAY NHI PHAN RONG HAY KHONG
+int Empty(NODEPTR root)
+   return(root == NULL ? TRUE : FALSE);
+}
+
+
+//HUY BO MOT NUT TRONG CAY NHI PHAN BST
+void  remove_case_3 ( NODEPTR  &r ) {
+ 	if (r->left != NULL)
+		remove_case_3 (r->left);  //den day r la nut cuc trai cua cay con ben phai co nut goc la rp}
+	else {
+	rp->key = r->key;  	//Chep noi dung cua r sang rp ";
+	rp->info =r->info;	//  de lat nua free(rp)
+	rp = r;           	
+	r = r->right;
+	}
+}
+
+void  remove (int x ,  NODEPTR &p ) {
+	if (p == NULL)  printf ("Khong tim thay");
+	else
+		if (x < p->key)   remove (x, p->left);
+		else if (x > p->key)
+			remove (x, p->right);
+		else   // p^.key = x
+		{
+		rp = p;
+		if (rp->right == NULL)  p = rp->left;    // p la nut la¸ hoac la nut chi co cay con ben trai
+		else 	if (rp->left == NULL)
+		p = rp->right;    // p la nut co cay con ben phai
+		else remove_case_3 (rp->right);
+		free (rp);
+		}
+}
+
+
+//TIM KIEM
+NODEPTR Search(NODEPTR root, int x) {
+	NODEPTR p;
+	p = root;
+	while(p != NULL && x!=p->key)
+		if(x < p->key)
+			p = p->left;
+	 	else
+			p = p->right;
+	return(p); 
+}
+
+//DUYET CAY NLR(PREORDER)
+void Preorder (NODEPTR root) { 
+	if(root != NULL) { 
+	printf("%d ", root->info);
+	Preorder(root->left);
+	Preorder (root->right);
+	}
+}
+
+
+//LNR
+void Inorder(NODEPTR root) {
+	if(root != NULL) {
+		Inorder(root->left);
+		printf("%d ", root->info);
+		Inorder(root->right);
+	}
+}
+
+//LRN
+void Posorder(NODEPTR root) {  
+	if(root != NULL) { 
+		Posorder(root->left);
+		Posorder(root->right);
+		printf("%d ", root->info);
+	}
+}
+
